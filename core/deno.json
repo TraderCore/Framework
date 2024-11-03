@@ -1,0 +1,5 @@
+{
+	"name": "@trader-core/core",
+	"exports": "./mod.ts",
+	"imports": {}
+}
