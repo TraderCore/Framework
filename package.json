@@ -28,6 +28,7 @@
   },
   "packageManager": "pnpm@9.12.3",
   "scripts": {
+    "check-types": "turbo check-types",
     "commitlint": "commitlint --edit",
     "lint-staged": "lint-staged",
     "prepare": "husky && syncpack list-mismatches"
