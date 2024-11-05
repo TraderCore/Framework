@@ -28,6 +28,8 @@
         "check-types": "turbo check-types",
         "commitlint": "commitlint --edit",
         "lint-staged": "lint-staged",
-        "prepare": "husky && syncpack list-mismatches"
+        "prepare": "husky && syncpack list-mismatches",
+        "build": "turbo build",
+        "test": "turbo test"
     }
 }

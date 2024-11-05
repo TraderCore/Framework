@@ -8,8 +8,8 @@
         "check-types": {
             "dependsOn": ["^check-types"]
         },
-        "dev": {
-            "persistent": true,
+        "test": {
+            "dependsOn": ["^test"],
             "cache": false
         }
     }
