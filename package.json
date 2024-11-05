@@ -1,36 +1,33 @@
 {
-  "name": "@trader-core/root",
-  "version": "1.0.0",
-  "author": "TheGoatedDev",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@commitlint/cli": "19.5.0",
-    "@commitlint/config-conventional": "19.5.0",
-    "husky": "9.1.6",
-    "lint-staged": "15.2.10",
-    "syncpack": "13.0.0",
-    "turbo": "2.2.3"
-  },
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "keywords": [],
-  "license": "GPL-3.0-only",
-  "lint-staged": {
-    "package.json": [
-      "syncpack format",
-      "syncpack lint-semver-ranges",
-      "syncpack list-mismatches"
-    ],
-    "*.{js,jsx,ts,tsx,json}": [
-      "biome check --fix"
-    ]
-  },
-  "packageManager": "pnpm@9.12.3",
-  "scripts": {
-    "check-types": "turbo check-types",
-    "commitlint": "commitlint --edit",
-    "lint-staged": "lint-staged",
-    "prepare": "husky && syncpack list-mismatches"
-  }
+    "name": "@trader-core/root",
+    "version": "1.0.0",
+    "author": "TheGoatedDev",
+    "devDependencies": {
+        "@biomejs/biome": "1.9.4",
+        "@commitlint/cli": "19.5.0",
+        "@commitlint/config-conventional": "19.5.0",
+        "husky": "9.1.6",
+        "lint-staged": "15.2.10",
+        "syncpack": "13.0.0",
+        "turbo": "2.2.3"
+    },
+    "engines": {
+        "node": ">=22.0.0"
+    },
+    "keywords": [],
+    "license": "GPL-3.0-only",
+    "lint-staged": {
+        "package.json": [
+            "syncpack lint-semver-ranges",
+            "syncpack list-mismatches"
+        ],
+        "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
+    },
+    "packageManager": "pnpm@9.12.3",
+    "scripts": {
+        "check-types": "turbo check-types",
+        "commitlint": "commitlint --edit",
+        "lint-staged": "lint-staged",
+        "prepare": "husky && syncpack list-mismatches"
+    }
 }
