@@ -10,6 +10,9 @@
     "lint-staged": "15.2.10",
     "syncpack": "13.0.0"
   },
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "keywords": [],
   "license": "GPL-3.0-only",
   "lint-staged": {
