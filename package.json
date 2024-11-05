@@ -22,7 +22,7 @@
       "syncpack lint-semver-ranges",
       "syncpack list-mismatches"
     ],
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx,json}": [
       "biome check --fix"
     ]
   },
