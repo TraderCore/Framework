@@ -23,8 +23,7 @@
       "syncpack list-mismatches"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "biome check --apply",
-      "biome format --write"
+      "biome check --fix"
     ]
   },
   "packageManager": "pnpm@9.12.3",
