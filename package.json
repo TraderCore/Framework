@@ -1,7 +1,29 @@
 {
-    "name": "@trader-core/root",
+    "name": "@tradercore/root",
     "version": "1.0.0",
     "author": "TheGoatedDev",
+
+    "scripts": {
+        "============== TURBO ==============": "",
+        "build": "turbo build",
+        "test": "turbo test",
+        "dev": "turbo dev",
+        "check-types": "turbo check-types",
+
+        "============== LINTING ==============": "",
+        "lint": "turbo lint-format",
+        "lint:fix": "turbo lint-format:fix",
+        "lint-format": "biome check .",
+        "lint-format:fix": "biome check . --fix",
+
+        "============== APPLICATIONS ==============": "",
+        "app:admin": "pnpm --filter @tradercore/admin-dashboard",
+
+        "============== SCRIPTS ==============": "",
+        "prepare": "husky && syncpack list-mismatches",
+        "lint-staged": "lint-staged",
+        "commitlint": "commitlint --edit"
+    },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
         "@commitlint/cli": "19.5.0",
@@ -11,10 +33,6 @@
         "syncpack": "13.0.0",
         "turbo": "2.2.3"
     },
-    "engines": {
-        "node": ">=22.0.0"
-    },
-    "keywords": [],
     "license": "GPL-3.0-only",
     "lint-staged": {
         "package.json": [
@@ -24,12 +42,7 @@
         "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
     },
     "packageManager": "pnpm@9.12.3",
-    "scripts": {
-        "check-types": "turbo check-types",
-        "commitlint": "commitlint --edit",
-        "lint-staged": "lint-staged",
-        "prepare": "husky && syncpack list-mismatches",
-        "build": "turbo build",
-        "test": "turbo test"
+    "engines": {
+        "node": ">=22.0.0"
     }
 }

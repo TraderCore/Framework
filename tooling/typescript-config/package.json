@@ -1,0 +1,13 @@
+{
+    "name": "@tradercore/typescript-config",
+    "version": "1.0.0",
+
+    "files": [
+        "base.json",
+        "library.json",
+        "nextjs.json",
+        "node.json",
+        "react.json",
+        "cli.json"
+    ]
+}

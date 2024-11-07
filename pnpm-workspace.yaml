@@ -1,6 +1,6 @@
 packages:
   - "apps/*"
-  - "cli/*"
+  - "cli"
   - "core"
   - "packages/*"
   - "plugins/*"

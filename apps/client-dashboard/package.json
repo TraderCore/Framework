@@ -1,0 +1,30 @@
+{
+    "name": "@tradercore/app-client-dashboard",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "next dev --port 3000",
+        "build": "next build",
+        "start": "next start",
+        "check-types": "tsc --noEmit",
+        "test": "jest --passWithNoTests"
+    },
+    "dependencies": {
+        "react": "19.0.0-rc-02c0e824-20241028",
+        "react-dom": "19.0.0-rc-02c0e824-20241028",
+        "next": "15.0.2",
+        "@tradercore/core": "workspace:*"
+    },
+    "devDependencies": {
+        "@types/node": "22.9.0",
+        "@types/react": "18.3.1",
+        "@types/react-dom": "18.3.1",
+        "postcss": "8.4.47",
+        "tailwindcss": "3.4.14",
+        "@tradercore/typescript-config": "workspace:*",
+        "@tradercore/jest-config": "workspace:*",
+        "jest": "29.7.0",
+        "typescript": "5.6.3"
+    }
+}
