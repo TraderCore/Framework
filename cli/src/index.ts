@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 
+import { VERSION } from '@tradercore/core';
 import chalk from 'chalk';
 import { program } from 'commander';
 import figlet from 'figlet';
@@ -11,8 +12,8 @@ console.log(title);
 
 program
     .name('tradercore')
-    .version('1.0.0')
-    .description('Powering all things Trader')
+    .version(VERSION)
+    .description(`Powering all things Trader: ${VERSION}`)
     .option('-a, --auth <type>', 'Authenticate with tradercore')
     .option('-u, --url <type>', 'tradercore API URL');
 

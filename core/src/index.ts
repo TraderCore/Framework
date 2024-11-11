@@ -1,3 +1,3 @@
-import { CoreModule } from '@/core/core.module.js';
+export const VERSION = '1.0.0';
 
-export { CoreModule };
+export * from './core.module.js';

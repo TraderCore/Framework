@@ -5,8 +5,10 @@
         "baseUrl": ".",
         "declaration": true,
         "paths": {
-            "@/*": ["./src/*"]
-        }
+            "@/*": ["./dist/*"]
+        },
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     "include": ["./src/**/*.ts", "./src/**/*.tsx"],
     "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]

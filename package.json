@@ -7,7 +7,7 @@
         "============== TURBO ==============": "",
         "build": "turbo build",
         "test": "turbo test",
-        "dev": "turbo dev",
+        "dev": "turbo dev --ui=tui",
         "check-types": "turbo check-types",
 
         "============== LINTING ==============": "",
@@ -17,7 +17,10 @@
         "lint-format:fix": "biome check . --fix",
 
         "============== APPLICATIONS ==============": "",
-        "app:admin": "pnpm --filter @tradercore/admin-dashboard",
+        "app:admin": "pnpm --filter @tradercore/app-admin-dashboard",
+        "app:client": "pnpm --filter @tradercore/app-client-dashboard",
+        "app:api": "pnpm --filter @tradercore/app-api",
+        "app:cli": "pnpm --filter @tradercore/cli",
 
         "============== SCRIPTS ==============": "",
         "prepare": "husky && syncpack list-mismatches",
@@ -31,7 +34,8 @@
         "husky": "9.1.6",
         "lint-staged": "15.2.10",
         "syncpack": "13.0.0",
-        "turbo": "2.2.3"
+        "turbo": "2.2.3",
+        "@types/node": "22.9.0"
     },
     "license": "GPL-3.0-only",
     "lint-staged": {

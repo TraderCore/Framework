@@ -21,7 +21,8 @@
         "inquirer": "12.0.1",
         "chalk": "5.3.0",
         "axios": "1.7.7",
-        "figlet": "1.8.0"
+        "figlet": "1.8.0",
+        "@tradercore/core": "workspace:*"
     },
     "devDependencies": {
         "@tradercore/typescript-config": "workspace:*",
