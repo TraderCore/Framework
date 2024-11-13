@@ -1,9 +1,8 @@
-import { Logger, Module } from '@nestjs/common';
+import { Logger, Module, forwardRef } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { createId } from '@paralleldrive/cuid2';
 import { CoreModule } from '@tradercore/core';
 import { PluginManagerModule } from '@tradercore/plugin-manager';
-import { TemplatePluginModule } from '@tradercore/plugin-template';
 import { LoggerModule } from 'nestjs-pino';
 import { DevModule } from './dev/dev.module.js';
 @Module({

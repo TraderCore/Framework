@@ -1,9 +1,12 @@
 import { Global, Module } from '@nestjs/common';
+import { CoreModule } from '@tradercore/core';
+import { TemplatePluginController } from './plugin.controller.js';
 import { TemplatePluginService } from './plugin.service.js';
 
 @Global()
 @Module({
-    imports: [],
+    imports: [CoreModule],
+    controllers: [TemplatePluginController],
     providers: [TemplatePluginService],
     exports: [TemplatePluginService],
 })

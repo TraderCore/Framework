@@ -7,14 +7,14 @@
     },
     "exports": {
         ".": {
-            "types": "./src/index.ts",
+            "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
         }
     },
     "scripts": {
         "check-types": "tsc --noEmit",
-        "build": "tsc",
-        "dev": "tsc --watch",
+        "build": "tsc && tsc-alias",
+        "dev": "tsc-watch --onSuccess 'tsc-alias'",
         "test": "jest --passWithNoTests"
     },
     "dependencies": {
@@ -29,6 +29,8 @@
         "@types/jest": "29.5.14",
         "@types/node": "22.9.0",
         "jest": "29.7.0",
-        "typescript": "5.6.3"
+        "typescript": "5.6.3",
+        "tsc-alias": "1.8.10",
+        "tsc-watch": "6.2.1"
     }
 }

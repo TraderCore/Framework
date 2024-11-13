@@ -9,12 +9,16 @@
         ".": {
             "types": "./src/index.ts",
             "default": "./dist/index.js"
+        },
+        "./config": {
+            "types": "./src/config/index.ts",
+            "default": "./dist/config/index.js"
         }
     },
     "scripts": {
         "check-types": "tsc --noEmit",
         "build": "tsc",
-        "dev": "tsc --watch",
+        "dev": "tsc-watch",
         "test": "jest --passWithNoTests"
     },
     "dependencies": {
@@ -27,6 +31,7 @@
         "@tradercore/typescript-config": "workspace:*",
         "@types/jest": "29.5.14",
         "jest": "29.7.0",
-        "typescript": "5.6.3"
+        "typescript": "5.6.3",
+        "tsc-watch": "6.2.1"
     }
 }
