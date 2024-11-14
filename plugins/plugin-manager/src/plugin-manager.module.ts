@@ -30,6 +30,9 @@ export class PluginManagerModule {
             });
 
             if (loaded) {
+                logger.log(
+                    `Loaded plugin ${loaded.name}@${loaded.version} from ${plugin}`,
+                );
                 plugins.push(loaded);
             }
         }

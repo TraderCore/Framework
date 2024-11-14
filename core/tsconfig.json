@@ -6,7 +6,7 @@
         "paths": {
             "@/*": ["./src/*"]
         },
-        "declarationDir": "./dist/types",
+        "declarationDir": "./dist",
         "declaration": true,
         "declarationMap": true,
         "emitDecoratorMetadata": true,

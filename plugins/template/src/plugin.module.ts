@@ -5,7 +5,7 @@ import { TemplatePluginService } from './plugin.service.js';
 
 @Global()
 @Module({
-    imports: [CoreModule],
+    imports: [],
     controllers: [TemplatePluginController],
     providers: [TemplatePluginService],
     exports: [TemplatePluginService],
