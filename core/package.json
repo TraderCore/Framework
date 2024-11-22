@@ -11,8 +11,8 @@
             "default": "./dist/index.js"
         },
         "./config": {
-            "types": "./src/config/index.ts",
-            "default": "./dist/config/index.js"
+            "types": "./src/modules/config/index.ts",
+            "default": "./dist/modules/config/index.js"
         }
     },
     "scripts": {
@@ -24,7 +24,9 @@
     "dependencies": {
         "@nestjs/common": "10.4.7",
         "@nestjs/config": "3.3.0",
-        "@nestjs/core": "10.4.7"
+        "@nestjs/core": "10.4.7",
+        "@nestjs/swagger": "8.0.7",
+        "zod": "3.23.8"
     },
     "devDependencies": {
         "@tradercore/jest-config": "workspace:*",

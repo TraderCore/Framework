@@ -12,7 +12,15 @@
                 "useImportType": {
                     "fix": "none",
                     "level": "info"
-                }
+                },
+                "useFilenamingConvention": {
+                    "level": "warn",
+                    "options": {
+                        "filenameCases": ["camelCase"],
+                        "strictCase": true
+                    }
+                },
+                "useNamingConvention": "error"
             }
         }
     },

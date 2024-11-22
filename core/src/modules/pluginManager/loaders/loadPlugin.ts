@@ -1,8 +1,8 @@
-import { getProtocolFile } from '@/utils/get-protocol-file.js';
 import type { Plugin } from '../types.js';
-import { loadFile } from './file.js';
-import { loadHttp } from './http.js';
-import { loadRegistry } from './registry.js';
+import { getProtocolFile } from '../utils/getProtocolFile.js';
+import { loadFile } from './file.loader.js';
+import { loadHttp } from './http.loader.js';
+import { loadRegistry } from './registry.loader.js';
 
 export const loadPlugin = async (
     url: string,

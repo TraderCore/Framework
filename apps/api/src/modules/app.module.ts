@@ -2,29 +2,31 @@ import { Logger, Module, forwardRef } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { createId } from '@paralleldrive/cuid2';
 import { CoreModule } from '@tradercore/core';
-import { PluginManagerModule } from '@tradercore/plugin-manager';
+import { CoreConfigService, Environment } from '@tradercore/core/config';
 import { LoggerModule } from 'nestjs-pino';
 import { DevModule } from './dev/dev.module.js';
 @Module({
     imports: [
-        LoggerModule.forRoot({
-            pinoHttp: {
-                genReqId: (req) => createId(),
+        LoggerModule.forRootAsync({
+            inject: [CoreConfigService],
+            useFactory: (config: CoreConfigService) => ({
+                pinoHttp: {
+                    genReqId: (req) => createId(),
 
-                name: 'TraderCore API',
-                level: 'debug',
-                transport: {
-                    target: 'pino-pretty',
+                    name: 'TraderCore',
+                    level: config.logLevel,
+                    transport:
+                        config.environment === Environment.Development
+                            ? {
+                                  target: 'pino-pretty',
+                              }
+                            : undefined,
                 },
-            },
+            }),
         }),
 
         CoreModule,
         DevModule,
-
-        PluginManagerModule.forRoot({
-            registry: ['https://registry.tradercore.dev'],
-        }),
     ],
 })
 export class AppModule {}

@@ -18,6 +18,6 @@ export class TemplatePluginService {
 
     test() {
         this.logger.log('Test');
-        return 'Test';
+        return `Test ${new Date().toISOString()}`;
     }
 }

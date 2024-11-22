@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from './config/index.js';
+import { ConfigModule } from './modules/config/index.js';
+import { PluginManagerModule } from './modules/pluginManager/pluginManager.module.js';
 
 @Module({
-    imports: [ConfigModule],
+    imports: [ConfigModule, PluginManagerModule.forRoot({ registry: [] })],
     providers: [],
     exports: [],
 })

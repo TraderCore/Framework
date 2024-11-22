@@ -1,6 +1,6 @@
-import { getProtocolFile } from '@/utils/get-protocol-file.js';
-import { savePlugin } from '@/utils/save-plugin.js';
 import type { Plugin } from '../types.js';
+import { getProtocolFile } from '../utils/getProtocolFile.js';
+import { SavePlugin } from '../utils/savePlugin.js';
 
 export const loadHttp = async (url: string): Promise<Plugin> => {
     const { protocol, path } = await getProtocolFile(url);
@@ -17,7 +17,7 @@ export const loadHttp = async (url: string): Promise<Plugin> => {
 
     const code = await response.text();
 
-    const pluginPath = await savePlugin(code);
+    const pluginPath = await SavePlugin(code);
 
     const module = await import(pluginPath).catch(() => {
         throw new Error(`Failed to import module from ${url}`);

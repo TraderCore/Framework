@@ -1,11 +1,9 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-
 import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
-import { PLUGINS, PluginPath } from './constants.js';
-import { loadPlugin } from './loaders/index.js';
-import { PluginManagerController } from './plugin-manager.controller.js';
+import { PLUGINS, REGISTRIES } from './constants.js';
+import { loadPlugin } from './loaders/loadPlugin.js';
+import { PluginManagerController } from './pluginManager.controller.js';
 import type { Plugin } from './types.js';
+
 interface PluginManagerOptions {
     registry: string[];
 }
@@ -17,13 +15,18 @@ export class PluginManagerModule {
     static async forRoot(
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
-        const toLoad: string[] = ['https://pastebin.com/raw/Jt4PCuVB'];
+        const toLoadHttp: string[] = ['https://pastebin.com/raw/Jt4PCuVB'];
+
+        const registries: string[] = [
+            'registry.tradercore.dev/v1',
+            ...options.registry,
+        ];
 
         const plugins: Plugin[] = [];
 
         const logger = new Logger(PluginManagerModule.name);
 
-        for (const plugin of toLoad) {
+        for (const plugin of toLoadHttp) {
             const loaded = await loadPlugin(plugin).catch((error) => {
                 logger.error(`Failed to load plugin ${plugin}: ${error}`);
                 return null;
@@ -46,6 +49,10 @@ export class PluginManagerModule {
                 {
                     provide: PLUGINS,
                     useValue: plugins,
+                },
+                {
+                    provide: REGISTRIES,
+                    useValue: registries,
                 },
             ],
             controllers: [PluginManagerController],

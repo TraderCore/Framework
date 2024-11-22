@@ -1,5 +1,5 @@
-import { getProtocolFile } from '@/utils/get-protocol-file.js';
 import type { Plugin } from '../types.js';
+import { getProtocolFile } from '../utils/getProtocolFile.js';
 
 export const loadFile = async (url: string): Promise<Plugin> => {
     const { protocol, path } = await getProtocolFile(url);
