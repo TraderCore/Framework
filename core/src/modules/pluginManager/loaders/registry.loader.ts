@@ -1,4 +1,4 @@
-import type { Plugin } from '../types.js';
+import type { Plugin } from '../types/plugin.js';
 import { getProtocolFile } from '../utils/getProtocolFile.js';
 
 export const loadRegistry = async (
@@ -30,10 +30,5 @@ export const loadRegistry = async (
         throw new Error(`Failed to import module from ${url}`);
     });
 
-    return {
-        location: url,
-        name: module.NAME,
-        version: module.VERSION,
-        module: module.Plugin,
-    };
+    return module.default;
 };

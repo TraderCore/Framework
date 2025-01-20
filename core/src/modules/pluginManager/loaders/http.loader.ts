@@ -1,4 +1,4 @@
-import type { Plugin } from '../types.js';
+import type { Plugin } from '../types/plugin.js';
 import { getProtocolFile } from '../utils/getProtocolFile.js';
 import { SavePlugin } from '../utils/savePlugin.js';
 
@@ -23,10 +23,5 @@ export const loadHttp = async (url: string): Promise<Plugin> => {
         throw new Error(`Failed to import module from ${url}`);
     });
 
-    return {
-        location: url,
-        name: module.NAME,
-        version: module.VERSION,
-        module: module.Plugin,
-    };
+    return module.default;
 };

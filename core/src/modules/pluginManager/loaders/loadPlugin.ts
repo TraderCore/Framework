@@ -1,4 +1,4 @@
-import type { Plugin } from '../types.js';
+import type { Plugin } from '../types/plugin.js';
 import { getProtocolFile } from '../utils/getProtocolFile.js';
 import { loadFile } from './file.loader.js';
 import { loadHttp } from './http.loader.js';

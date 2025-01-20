@@ -2,7 +2,7 @@ import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
 import { PLUGINS, REGISTRIES } from './constants.js';
 import { loadPlugin } from './loaders/loadPlugin.js';
 import { PluginManagerController } from './pluginManager.controller.js';
-import type { Plugin } from './types.js';
+import type { Plugin, PluginInternal } from './types/plugin.js';
 
 interface PluginManagerOptions {
     registry: string[];
@@ -15,7 +15,9 @@ export class PluginManagerModule {
     static async forRoot(
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
-        const toLoadHttp: string[] = ['https://pastebin.com/raw/Jt4PCuVB'];
+        const toLoad: string[] = [
+            'file://../../../../../plugins/template/dist/index.js',
+        ];
 
         const registries: string[] = [
             'registry.tradercore.dev/v1',
@@ -26,17 +28,23 @@ export class PluginManagerModule {
 
         const logger = new Logger(PluginManagerModule.name);
 
-        for (const plugin of toLoadHttp) {
-            const loaded = await loadPlugin(plugin).catch((error) => {
-                logger.error(`Failed to load plugin ${plugin}: ${error}`);
+        for (const pluginUri of toLoad) {
+            const loaded = await loadPlugin(pluginUri).catch((error) => {
+                logger.error(`Failed to load plugin ${pluginUri}: ${error}`);
                 return null;
             });
 
             if (loaded) {
                 logger.log(
-                    `Loaded plugin ${loaded.name}@${loaded.version} from ${plugin}`,
+                    `Loaded plugin ${loaded.name}@${loaded.version} from ${pluginUri}`,
                 );
-                plugins.push(loaded);
+
+                const internal: PluginInternal = {
+                    ...loaded,
+                    location: pluginUri,
+                };
+
+                plugins.push(internal);
             }
         }
 
@@ -44,7 +52,11 @@ export class PluginManagerModule {
 
         return {
             module: PluginManagerModule,
-            imports: plugins.map((plugin) => plugin.module as DynamicModule),
+            imports: plugins.flatMap((plugin) =>
+                plugin.entrypoints.map(
+                    (entrypoint) => entrypoint.module as DynamicModule,
+                ),
+            ),
             providers: [
                 {
                     provide: PLUGINS,

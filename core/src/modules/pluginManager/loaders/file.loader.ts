@@ -1,4 +1,4 @@
-import type { Plugin } from '../types.js';
+import type { Plugin } from '../types/plugin.js';
 import { getProtocolFile } from '../utils/getProtocolFile.js';
 
 export const loadFile = async (url: string): Promise<Plugin> => {
@@ -12,10 +12,7 @@ export const loadFile = async (url: string): Promise<Plugin> => {
         throw new Error(`Failed to import module from ${url}`);
     });
 
-    return {
-        location: url,
-        name: module.NAME,
-        version: module.VERSION,
-        module: module.Plugin,
-    };
+    console.log(module.def);
+
+    return module.default;
 };

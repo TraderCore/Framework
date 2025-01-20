@@ -9,4 +9,9 @@ export class DevController {
     health() {
         return { status: 'ok' };
     }
+
+    @Get('test')
+    test() {
+        return this.devService.test();
+    }
 }
