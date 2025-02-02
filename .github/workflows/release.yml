@@ -10,7 +10,10 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
-  packages: write
+  issues: write
+  repository-projects: write
+  checks: write
+  statuses: write
 
 env:
   PNPM_VERSION: 9.12.3
