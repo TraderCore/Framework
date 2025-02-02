@@ -1,5 +1,11 @@
 # @tradercore/framework
 
+## 1.0.2
+
+### Patch Changes
+
+- 9ed6bca: testing
+
 ## 1.0.1
 
 ### Patch Changes

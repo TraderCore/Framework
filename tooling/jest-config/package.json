@@ -1,6 +1,6 @@
 {
     "name": "@tradercore/jest-config",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Shared Jest configurations for TraderCore Framework",
     "author": "TheGoatedDev",
     "private": true,
