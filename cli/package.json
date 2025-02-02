@@ -4,6 +4,9 @@
     "main": "./src/index.ts",
     "private": true,
     "type": "module",
+    "publishConfig": {
+        "access": "public"
+    },
     "bin": {
         "tradercore": "./dist/index.js"
     },
