@@ -1,6 +1,6 @@
 {
     "name": "@tradercore/app-client-dashboard",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "TraderCore Framework Client Dashboard - User interface for traders",
     "author": "TheGoatedDev",
     "private": true,
