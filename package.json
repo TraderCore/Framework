@@ -1,0 +1,67 @@
+{
+    "name": "@tradercore/monorepo",
+    "version": "1.0.0",
+    "description": "TraderCore Framework - A powerful trading platform framework",
+    "author": "TheGoatedDev",
+    "private": true,
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tradercore/framework.git"
+    },
+    "bugs": {
+        "url": "https://github.com/tradercore/framework/issues"
+    },
+    "homepage": "https://tradercore.com",
+    "keywords": ["trading", "framework", "finance", "typescript", "nodejs"],
+    "scripts": {
+        "============== TURBO ==============": "",
+        "build": "turbo build",
+        "test": "turbo test",
+        "dev": "turbo dev --ui=tui",
+        "check-types": "turbo check-types",
+        "============== LINTING ==============": "",
+        "lint": "turbo lint-format",
+        "lint:fix": "turbo lint-format:fix",
+        "lint-format": "biome check .",
+        "lint-format:fix": "biome check . --fix",
+        "============== APPLICATIONS ==============": "",
+        "app:admin": "pnpm --filter @tradercore/app-admin-dashboard",
+        "app:client": "pnpm --filter @tradercore/app-client-dashboard",
+        "app:api": "pnpm --filter @tradercore/app-api",
+        "app:cli": "pnpm --filter @tradercore/cli",
+        "============== RELEASE ==============": "",
+        "changeset": "changeset",
+        "version-packages": "changeset version",
+        "release:publish": "pnpm build && changeset publish",
+        "============== SCRIPTS ==============": "",
+        "prepare": "husky && syncpack list-mismatches",
+        "lint-staged": "lint-staged",
+        "commitlint": "commitlint --edit"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.9.4",
+        "rimraf": "6.0.1",
+        "@changesets/cli": "2.27.12",
+        "@commitlint/cli": "19.5.0",
+        "@commitlint/config-conventional": "19.5.0",
+        "@types/node": "22.9.0",
+        "husky": "9.1.6",
+        "lint-staged": "15.2.10",
+        "syncpack": "13.0.0",
+        "turbo": "2.2.3"
+    },
+    "license": "GPL-3.0-only",
+    "lint-staged": {
+        "package.json": [
+            "syncpack lint-semver-ranges",
+            "syncpack list-mismatches"
+        ],
+        "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
+    },
+    "packageManager": "pnpm@9.12.3",
+    "engines": {
+        "node": ">=22.0.0",
+        "pnpm": ">=9.12.3"
+    }
+}

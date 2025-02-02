@@ -1,6 +1,0 @@
-{
-	"workspace": ["./apps/api", "./core"],
-	"tasks": {
-		"docker:api": "docker build -t api:latest -f Dockerfile . --build-arg APP_NAME=api"
-	}
-}

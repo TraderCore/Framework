@@ -1,0 +1,33 @@
+{
+    "name": "@tradercore/cli",
+    "version": "1.0.0",
+    "main": "./src/index.ts",
+    "type": "module",
+    "bin": {
+        "tradercore": "./dist/index.js"
+    },
+    "scripts": {
+        "prepare": "pnpm link --global",
+        "check-types": "tsc --noEmit",
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "test": "jest --passWithNoTests"
+    },
+    "dependencies": {
+        "@tradercore/framework": "workspace:*",
+        "axios": "1.7.7",
+        "chalk": "5.3.0",
+        "commander": "12.1.0",
+        "figlet": "1.8.0",
+        "inquirer": "12.1.0"
+    },
+    "devDependencies": {
+        "@tradercore/jest-config": "workspace:*",
+        "@tradercore/typescript-config": "workspace:*",
+        "@types/figlet": "1.7.0",
+        "@types/node": "22.9.0",
+        "jest": "29.7.0",
+        "tsup": "8.0.2",
+        "typescript": "5.6.3"
+    }
+}
