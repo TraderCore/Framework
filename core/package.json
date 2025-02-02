@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "description": "TraderCore Framework Core - Core functionality and shared modules",
     "author": "TheGoatedDev",
-    "private": true,
     "type": "module",
     "repository": {
         "type": "git",

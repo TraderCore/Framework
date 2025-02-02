@@ -2,6 +2,7 @@
     "name": "@tradercore/cli",
     "version": "1.0.0",
     "main": "./src/index.ts",
+    "private": true,
     "type": "module",
     "bin": {
         "tradercore": "./dist/index.js"
