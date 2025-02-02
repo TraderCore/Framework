@@ -1,6 +1,4 @@
-#! /usr/bin/env node
-
-import { VERSION } from '@tradercore/core';
+import { VERSION } from '@tradercore/framework';
 import chalk from 'chalk';
 import { program } from 'commander';
 import figlet from 'figlet';

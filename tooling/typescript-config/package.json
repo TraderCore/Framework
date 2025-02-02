@@ -1,13 +1,30 @@
 {
     "name": "@tradercore/typescript-config",
     "version": "1.0.0",
-
-    "files": [
-        "base.json",
-        "library.json",
-        "nextjs.json",
-        "node.json",
-        "react.json",
-        "cli.json"
-    ]
+    "description": "Shared TypeScript configurations for TraderCore Framework",
+    "author": "TheGoatedDev",
+    "private": true,
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tradercore/framework.git",
+        "directory": "tooling/typescript-config"
+    },
+    "bugs": {
+        "url": "https://github.com/tradercore/framework/issues"
+    },
+    "keywords": ["typescript", "config", "tradercore"],
+    "exports": {
+        "./base": "./base.json",
+        "./react": "./react.json",
+        "./node": "./node.json",
+        "./nextjs": "./nextjs.json",
+        "./cli": "./cli.json",
+        "./library": "./library.json"
+    },
+    "files": ["*.json"],
+    "scripts": {
+        "build": "echo 'No build needed - JSON files are static'"
+    },
+    "sideEffects": false
 }

@@ -2,13 +2,13 @@
     "$schema": "https://turbo.build/schema.json",
     "globalEnv": ["NODE_ENV", "DEBUG"],
     "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": [".next/**", "!.next/cache/**", "./dist/**", "*.json"]
+        },
         "dev": {
             "cache": false,
             "persistent": true
-        },
-        "build": {
-            "dependsOn": ["^build"],
-            "outputs": [".next/**", "!.next/cache/**", "./dist/**"]
         },
         "check-types": {
             "dependsOn": ["^check-types", "^build"]

@@ -1,8 +1,8 @@
 import { Logger, Module, forwardRef } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { createId } from '@paralleldrive/cuid2';
-import { CoreModule } from '@tradercore/core';
-import { CoreConfigService, Environment } from '@tradercore/core/config';
+import { CoreModule } from '@tradercore/framework';
+import { CoreConfigService, Environment } from '@tradercore/framework/config';
 import { LoggerModule } from 'nestjs-pino';
 import { DevModule } from './dev/dev.module.js';
 @Module({

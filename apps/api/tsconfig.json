@@ -1,5 +1,5 @@
 {
-    "extends": "@tradercore/typescript-config/node.json",
+    "extends": "../../tooling/typescript-config/node.json",
     "compilerOptions": {
         "outDir": "./dist",
         "baseUrl": ".",

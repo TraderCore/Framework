@@ -1,5 +1,5 @@
 {
-    "extends": "@tradercore/typescript-config/nextjs.json",
+    "extends": "../../tooling/typescript-config/nextjs.json",
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
@@ -13,5 +13,5 @@
         "./src/**/*.tsx",
         ".next/types/**/*.ts"
     ],
-    "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+    "exclude": ["node_modules"]
 }

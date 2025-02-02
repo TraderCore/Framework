@@ -1,6 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CoreConfigService } from '@tradercore/core/config';
+import { CoreConfigService } from '@tradercore/framework/config';
 
 @Injectable()
 export class DevService {
