@@ -1,6 +1,6 @@
 {
     "name": "@tradercore/app-api",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "TraderCore Framework API - Backend service for the trading platform",
     "author": "TheGoatedDev",
     "private": true,

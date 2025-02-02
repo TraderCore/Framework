@@ -1,6 +1,6 @@
 {
     "name": "@tradercore/framework",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "TraderCore Framework Core - Core functionality and shared modules",
     "author": "TheGoatedDev",
     "type": "module",
