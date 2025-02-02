@@ -4,6 +4,9 @@
     "description": "TraderCore Framework Core - Core functionality and shared modules",
     "author": "TheGoatedDev",
     "type": "module",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/tradercore/framework.git",
