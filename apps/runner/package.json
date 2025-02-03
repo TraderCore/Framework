@@ -1,6 +1,6 @@
 {
     "name": "@tradercore/app-runner",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "TraderCore Framework Runner - Backend service for the trading platform",
     "author": "TheGoatedDev",
     "private": true,
