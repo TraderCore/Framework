@@ -1,5 +1,13 @@
 # @tradercore/cli
 
+## 1.0.3
+
+### Patch Changes
+
+- 920fb05: Success?
+- Updated dependencies [920fb05]
+  - @tradercore/framework@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
