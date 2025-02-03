@@ -1,17 +1,22 @@
 {
     "extends": "../tooling/typescript-config/node.json",
     "compilerOptions": {
-        "baseUrl": ".",
-        "outDir": "./dist",
+        "baseUrl": "./src",
+        "outDir": "dist",
+        "rootDir": "src",
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./*"]
         },
         "declarationDir": "./dist",
         "declaration": true,
         "declarationMap": true,
         "esModuleInterop": true,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext",
+        "target": "ES2022",
+        "allowSyntheticDefaultImports": true
     },
     "include": ["./src/**/*.ts", "./src/**/*.tsx"],
     "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]

@@ -1,4 +1,4 @@
-import { VERSION } from '@tradercore/framework';
+import framework from '@tradercore/framework';
 import chalk from 'chalk';
 import { program } from 'commander';
 import figlet from 'figlet';
@@ -10,8 +10,8 @@ console.log(title);
 
 program
     .name('tradercore')
-    .version(VERSION)
-    .description(`Powering all things Trader: ${VERSION}`)
+    .version(framework.version)
+    .description(`Powering all things Trader: ${framework.version}`)
     .option('-a, --auth <type>', 'Authenticate with tradercore')
     .option('-u, --url <type>', 'tradercore API URL');
 

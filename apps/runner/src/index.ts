@@ -47,9 +47,11 @@ const bootstrap = async () => {
 
     const port = process.env.PORT || 8080;
 
-    logger.log(`Server is running on port ${port} 🚀`);
-
-    await app.listen(port);
+    await app.startAllMicroservices().then(() => {
+        app.listen(port).then(() => {
+            logger.log(`Server is running on port ${port} 🚀`);
+        });
+    });
 };
 
 bootstrap();

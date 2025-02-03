@@ -12,5 +12,5 @@ export default defineConfig({
     target: 'node18',
     outDir: 'dist',
     shims: true,
-    noExternal: ['@tradercore/framework'],
+    external: ['@tradercore/framework'],
 });

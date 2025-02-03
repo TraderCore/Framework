@@ -1,10 +1,11 @@
-import { Logger, Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { createId } from '@paralleldrive/cuid2';
 import { CoreModule } from '@tradercore/framework';
 import { CoreConfigService, Environment } from '@tradercore/framework/config';
 import { LoggerModule } from 'nestjs-pino';
 import { DevModule } from './dev/dev.module.js';
+
 @Module({
     imports: [
         LoggerModule.forRootAsync({
@@ -12,7 +13,6 @@ import { DevModule } from './dev/dev.module.js';
             useFactory: (config: CoreConfigService) => ({
                 pinoHttp: {
                     genReqId: (req) => createId(),
-
                     name: 'TraderCore',
                     level: config.logLevel,
                     transport:
@@ -24,9 +24,11 @@ import { DevModule } from './dev/dev.module.js';
                 },
             }),
         }),
-
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
         CoreModule,
-        DevModule,
+        // DevModule,
     ],
 })
 export class AppModule {}

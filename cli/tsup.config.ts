@@ -15,15 +15,4 @@ export default defineConfig({
     banner: {
         js: '#!/usr/bin/env node',
     },
-    external: [
-        '@nestjs/common',
-        '@nestjs/core',
-        '@nestjs/websockets',
-        '@nestjs/microservices',
-        'class-transformer',
-        'class-validator',
-        'reflect-metadata',
-        'rxjs',
-    ],
-    noExternal: ['@tradercore/framework'],
 });

@@ -1,7 +1,7 @@
 {
-    "name": "@tradercore/app-api",
+    "name": "@tradercore/app-runner",
     "version": "1.0.2",
-    "description": "TraderCore Framework API - Backend service for the trading platform",
+    "description": "TraderCore Framework Runner - Backend service for the trading platform",
     "author": "TheGoatedDev",
     "private": true,
     "type": "module",

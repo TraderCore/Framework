@@ -21,18 +21,18 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
-            "types": "./dist/index.d.ts"
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
         },
         "./config": {
-            "import": "./dist/modules/config/index.js",
-            "types": "./dist/modules/config/index.d.ts"
+            "types": "./dist/modules/config/index.d.ts",
+            "import": "./dist/modules/config/index.js"
         }
     },
     "scripts": {
         "check-types": "tsc --noEmit",
-        "build": "rimraf dist && tsc -p tsconfig.build.json",
-        "dev": "tsc -p tsconfig.build.json --watch",
+        "build": "rimraf dist && tsc",
+        "dev": "tsc --watch",
         "test": "jest --passWithNoTests"
     },
     "dependencies": {

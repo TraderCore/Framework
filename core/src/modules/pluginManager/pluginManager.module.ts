@@ -1,4 +1,4 @@
-import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
+import { DynamicModule, Global, Logger, Module, Type } from '@nestjs/common';
 import { PLUGINS, REGISTRIES } from './constants.js';
 import { loadPlugin } from './loaders/loadPlugin.js';
 import { PluginManagerController } from './pluginManager.controller.js';
@@ -10,13 +10,13 @@ interface PluginManagerOptions {
 
 @Global()
 @Module({})
-// biome-ignore lint/complexity/noStaticOnlyClass: Most likely the only class that will be static only
+// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class PluginManagerModule {
     static async forRoot(
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
         const toLoad: string[] = [
-            'file://../../../../../plugins/template/dist/index.js',
+            'file:///Users/thomasburridge/Projects/TraderCore/plugin-template/packages/main/dist/index.js',
         ];
 
         const registries: string[] = [
@@ -50,13 +50,14 @@ export class PluginManagerModule {
 
         logger.log(`Loaded ${plugins.length} plugins`);
 
+        const pluginModules = plugins.map(
+            (plugin) => plugin.module as Type<DynamicModule>,
+        );
+
         return {
             module: PluginManagerModule,
-            imports: plugins.flatMap((plugin) =>
-                plugin.entrypoints.map(
-                    (entrypoint) => entrypoint.module as DynamicModule,
-                ),
-            ),
+            imports: pluginModules,
+            controllers: [PluginManagerController],
             providers: [
                 {
                     provide: PLUGINS,
@@ -67,9 +68,7 @@ export class PluginManagerModule {
                     useValue: registries,
                 },
             ],
-            controllers: [PluginManagerController],
-            exports: [],
-            global: true,
+            exports: [PLUGINS, REGISTRIES],
         };
     }
 }

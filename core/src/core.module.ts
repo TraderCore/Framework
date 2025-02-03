@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Global, Module, forwardRef } from '@nestjs/common';
 import { ConfigModule } from './modules/config/index.js';
 import { PluginManagerModule } from './modules/pluginManager/pluginManager.module.js';
 
+@Global()
 @Module({
-    imports: [ConfigModule, PluginManagerModule.forRoot({ registry: [] })],
+    imports: [PluginManagerModule.forRoot({ registry: [] }), ConfigModule],
     providers: [],
-    exports: [],
+    exports: [ConfigModule],
 })
 export class CoreModule {}
