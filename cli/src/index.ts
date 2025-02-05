@@ -1,8 +1,8 @@
-import framework from '@tradercore/framework';
-import chalk from 'chalk';
-import { program } from 'commander';
-import figlet from 'figlet';
-import { usersCommand as setupUsersCommand } from './users.command.js';
+const framework = require('@tradercore/framework').default;
+const chalk = require('chalk');
+const { program } = require('commander');
+const figlet = require('figlet');
+const { usersCommand: setupUsersCommand } = require('./users.command');
 
 const title = chalk.blueBright(figlet.textSync('TraderCore'));
 

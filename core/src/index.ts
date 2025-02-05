@@ -1,6 +1,6 @@
-import { Plugin } from '@/modules/pluginManager/types/plugin.js';
-import packageJson from '../package.json' with { type: 'json' };
-import { CoreModule } from './core.module.js';
+import { Plugin } from '@/modules/pluginManager/types/plugin';
+const packageJson = require('../package.json');
+import { CoreModule } from './core.module';
 
 export default {
     name: '@tradercore/framework',
@@ -8,5 +8,6 @@ export default {
     module: CoreModule,
 } satisfies Plugin;
 
-export * from './core.module.js';
-export * from './modules/pluginManager/types/plugin.js';
+export * from './core.module';
+export * from './modules/pluginManager/types/plugin';
+export * from './modules/pluginManager/pluginManager.module';

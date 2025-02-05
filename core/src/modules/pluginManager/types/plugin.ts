@@ -1,4 +1,5 @@
 export interface PluginInternal extends Plugin {
+    enabled: boolean;
     location: string;
 }
 

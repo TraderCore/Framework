@@ -1,14 +1,11 @@
 {
-    "extends": "../../tooling/typescript-config/node.json",
+    "extends": "@tradercore/typescript-config/node",
     "compilerOptions": {
-        "outDir": "./dist",
         "baseUrl": ".",
-        "moduleResolution": "bundler",
+        "outDir": "./dist",
         "paths": {
             "@/*": ["./src/*"]
-        },
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        }
     },
     "include": ["./src/**/*.ts", "./src/**/*.tsx"],
     "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]

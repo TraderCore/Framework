@@ -13,5 +13,7 @@ export class PluginResponseDto implements PluginInternal {
     location!: string;
 
     @ApiProperty()
+    enabled!: boolean;
+
     module!: unknown;
 }

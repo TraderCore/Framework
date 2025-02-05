@@ -6,6 +6,10 @@
         "declarationMap": true,
         "sourceMap": true,
         "outDir": "./dist",
-        "stripInternal": true
+        "stripInternal": true,
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
     }
 }

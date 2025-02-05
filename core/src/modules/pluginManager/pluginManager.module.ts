@@ -1,8 +1,8 @@
 import { DynamicModule, Global, Logger, Module, Type } from '@nestjs/common';
-import { PLUGINS, REGISTRIES } from './constants.js';
-import { loadPlugin } from './loaders/loadPlugin.js';
-import { PluginManagerController } from './pluginManager.controller.js';
-import type { Plugin, PluginInternal } from './types/plugin.js';
+import { PLUGINS, REGISTRIES } from './constants';
+import { loadPlugin } from './loaders/loadPlugin';
+import { PluginManagerController } from './pluginManager.controller';
+import type { Plugin, PluginInternal } from './types/plugin';
 
 interface PluginManagerOptions {
     registry: string[];
@@ -16,7 +16,8 @@ export class PluginManagerModule {
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
         const toLoad: string[] = [
-            'file:///Users/thomasburridge/Projects/TraderCore/plugin-template/packages/main/dist/index.js',
+            // 'file:///Users/thomasburridge/Projects/TraderCore/plugin-template/packages/main/dist/index.cjs',
+            'file:///Users/thomasburridge/Projects/TraderCore/framework/plugins/template/dist/index.js',
         ];
 
         const registries: string[] = [
@@ -24,13 +25,16 @@ export class PluginManagerModule {
             ...options.registry,
         ];
 
-        const plugins: Plugin[] = [];
+        const plugins: PluginInternal[] = [];
 
         const logger = new Logger(PluginManagerModule.name);
 
         for (const pluginUri of toLoad) {
-            const loaded = await loadPlugin(pluginUri).catch((error) => {
+            const loaded = await loadPlugin(pluginUri).catch((error: Error) => {
                 logger.error(`Failed to load plugin ${pluginUri}: ${error}`);
+
+                console.error(error);
+
                 return null;
             });
 
@@ -42,6 +46,7 @@ export class PluginManagerModule {
                 const internal: PluginInternal = {
                     ...loaded,
                     location: pluginUri,
+                    enabled: true,
                 };
 
                 plugins.push(internal);
@@ -51,7 +56,7 @@ export class PluginManagerModule {
         logger.log(`Loaded ${plugins.length} plugins`);
 
         const pluginModules = plugins.map(
-            (plugin) => plugin.module as Type<DynamicModule>,
+            (plugin) => plugin.module as DynamicModule,
         );
 
         return {

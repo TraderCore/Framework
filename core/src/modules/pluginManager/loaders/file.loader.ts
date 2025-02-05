@@ -8,11 +8,9 @@ export const loadFile = async (url: string): Promise<Plugin> => {
         throw new Error(`Unsupported protocol: ${protocol} for File Loader`);
     }
 
-    const module = await import(path).catch(() => {
-        throw new Error(`Failed to import module from ${url}`);
+    const module = await import(path).catch((error) => {
+        throw new Error(`Failed to import module from ${url}: ${error}`);
     });
-
-    console.log(module.def);
 
     return module.default;
 };

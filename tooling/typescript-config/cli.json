@@ -4,6 +4,10 @@
     "compilerOptions": {
         "outDir": "./dist",
         "sourceMap": true,
-        "declaration": false
+        "declaration": false,
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
     }
 }

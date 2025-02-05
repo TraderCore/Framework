@@ -4,7 +4,7 @@ import { PluginManagerModule } from './modules/pluginManager/pluginManager.modul
 
 @Global()
 @Module({
-    imports: [PluginManagerModule.forRoot({ registry: [] }), ConfigModule],
+    imports: [ConfigModule],
     providers: [],
     exports: [ConfigModule],
 })

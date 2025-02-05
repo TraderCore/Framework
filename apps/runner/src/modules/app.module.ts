@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { createId } from '@paralleldrive/cuid2';
-import { CoreModule } from '@tradercore/framework';
+import { CoreModule, PluginManagerModule } from '@tradercore/framework';
 import { CoreConfigService, Environment } from '@tradercore/framework/config';
 import { LoggerModule } from 'nestjs-pino';
 import { DevModule } from './dev/dev.module.js';
@@ -28,6 +28,7 @@ import { DevModule } from './dev/dev.module.js';
             isGlobal: true,
         }),
         CoreModule,
+        PluginManagerModule.forRoot({ registry: [] }),
         // DevModule,
     ],
 })
