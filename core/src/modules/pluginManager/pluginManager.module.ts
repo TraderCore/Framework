@@ -16,8 +16,7 @@ export class PluginManagerModule {
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
         const toLoad: string[] = [
-            // 'file:///Users/thomasburridge/Projects/TraderCore/plugin-template/packages/main/dist/index.cjs',
-            'file:///Users/thomasburridge/Projects/TraderCore/framework/plugins/template/dist/index.js',
+            'file:///Users/thomasburridge/Projects/TraderCore/plugin-template/packages/main/dist/index.js',
         ];
 
         const registries: string[] = [
