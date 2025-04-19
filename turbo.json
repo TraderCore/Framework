@@ -4,11 +4,14 @@
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": [".next/**", "!.next/cache/**", "./dist/**", "*.json"]
+            "outputs": [".next/**", "!.next/cache/**", "./dist/**", "*.json"],
+            "inputs": ["./src/**/*.ts"]
         },
         "dev": {
+            "dependsOn": ["^build"],
             "cache": false,
-            "persistent": true
+            "persistent": true,
+            "interruptible": true
         },
         "check-types": {
             "dependsOn": ["^check-types", "^build"]

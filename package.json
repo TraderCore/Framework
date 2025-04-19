@@ -18,7 +18,7 @@
         "============== TURBO ==============": "",
         "build": "turbo build",
         "test": "turbo test",
-        "dev": "turbo dev",
+        "dev": "turbo watch dev",
         "check-types": "turbo check-types",
         "============== LINTING ==============": "",
         "lint": "turbo lint-format",
@@ -41,15 +41,15 @@
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
-        "rimraf": "6.0.1",
         "@changesets/cli": "2.27.12",
         "@commitlint/cli": "19.5.0",
         "@commitlint/config-conventional": "19.5.0",
         "@types/node": "22.9.0",
         "husky": "9.1.6",
         "lint-staged": "15.2.10",
+        "rimraf": "6.0.1",
         "syncpack": "13.0.0",
-        "turbo": "2.2.3"
+        "turbo": "2.5.0"
     },
     "license": "GPL-3.0-only",
     "lint-staged": {
