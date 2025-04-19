@@ -1,5 +1,6 @@
 import type { Plugin } from '../types/plugin.js';
 import { getProtocolFile } from '../utils/getProtocolFile.js';
+import { SavePlugin } from '../utils/savePlugin.js';
 
 export const loadRegistry = async (
     url: string,
@@ -26,7 +27,9 @@ export const loadRegistry = async (
 
     const code = await response.text();
 
-    const module = await import(code).catch(() => {
+    const pluginPath = await SavePlugin(code);
+
+    const module = await import(pluginPath).catch(() => {
         throw new Error(`Failed to import module from ${url}`);
     });
 

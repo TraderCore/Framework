@@ -1,6 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { registerAs } from '@nestjs/config';
-import { z } from 'zod';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsEnum, IsNumber } from 'class-validator';
 
 export enum Environment {
     Development = 'development',
@@ -17,24 +18,31 @@ const EnvironmentToLogLevelMap: Record<Environment, LogLevel> = {
     [Environment.Production]: LogLevel.Info,
 };
 
-const coreEnvSchema = z.object({
-    environment: z.nativeEnum(Environment),
-    debug: z.preprocess(Boolean, z.boolean()),
-    port: z.preprocess(Number, z.number()),
-});
+class CoreConfigDto {
+    @IsEnum(Environment)
+    environment!: Environment;
+
+    @IsBoolean()
+    @Type(() => Boolean)
+    debug!: boolean;
+
+    @IsNumber()
+    @Type(() => Number)
+    port!: number;
+}
 
 export const CoreConfig = registerAs('core', () => {
-    const parsed = coreEnvSchema.parse({
-        environment: process.env.NODE_ENV,
-        debug: process.env.DEBUG,
-        port: process.env.PORT,
-    });
+    const config = new CoreConfigDto();
+    config.environment =
+        (process.env.NODE_ENV as Environment) || Environment.Development;
+    config.debug = process.env.DEBUG === 'true';
+    config.port = Number(process.env.PORT) || 8080;
 
     return {
-        environment: parsed.environment,
-        debug: parsed.debug,
-        logLevel: EnvironmentToLogLevelMap[parsed.environment],
-        port: parsed.port,
+        environment: config.environment,
+        debug: config.debug,
+        logLevel: EnvironmentToLogLevelMap[config.environment],
+        port: config.port,
     };
 });
 

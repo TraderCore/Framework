@@ -1,11 +1,12 @@
-import 'reflect-metadata';
 import { config } from 'dotenv';
+import 'reflect-metadata';
 
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 
 import path from 'node:path';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { CoreConfigService } from '@tradercore/framework/config';
 import compression from 'compression';
 import helmet from 'helmet';
 import { Logger } from 'nestjs-pino';
@@ -45,11 +46,11 @@ const bootstrap = async () => {
     app.use(helmet());
     app.use(compression());
 
-    const port = process.env.PORT || 8080;
+    const coreConfig = app.get(CoreConfigService);
 
-    logger.log(`Server is running on port ${port} 🚀`);
+    logger.log(`Server is running on port ${coreConfig.port} 🚀`);
 
-    await app.listen(port);
+    await app.listen(coreConfig.port);
 };
 
 bootstrap();

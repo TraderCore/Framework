@@ -18,7 +18,7 @@
         "============== TURBO ==============": "",
         "build": "turbo build",
         "test": "turbo test",
-        "dev": "turbo dev --ui=tui",
+        "dev": "turbo dev",
         "check-types": "turbo check-types",
         "============== LINTING ==============": "",
         "lint": "turbo lint-format",
@@ -59,9 +59,9 @@
         ],
         "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
     },
-    "packageManager": "pnpm@9.12.3",
+    "packageManager": "pnpm@10.8.1",
     "engines": {
-        "node": ">=22.0.0",
-        "pnpm": ">=9.12.3"
+        "node": ">=22",
+        "pnpm": ">=10.8.1"
     }
 }

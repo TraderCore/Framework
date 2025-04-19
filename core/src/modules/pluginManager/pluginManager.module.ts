@@ -16,7 +16,7 @@ export class PluginManagerModule {
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
         const toLoad: string[] = [
-            'file://../../../../../plugins/template/dist/index.js',
+            'file:///Users/thomasburridge/Projects/TraderCore/Plugin-Template/packages/main/dist/index.js',
         ];
 
         const registries: string[] = [
@@ -31,7 +31,7 @@ export class PluginManagerModule {
         for (const pluginUri of toLoad) {
             const loaded = await loadPlugin(pluginUri).catch((error) => {
                 logger.error(`Failed to load plugin ${pluginUri}: ${error}`);
-                return null;
+                throw error;
             });
 
             if (loaded) {

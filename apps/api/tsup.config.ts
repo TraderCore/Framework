@@ -1,6 +1,15 @@
+import path from 'node:path';
 import { defineConfig } from 'tsup';
 
-export default defineConfig({
+const watchFoldersRelative = ['src/**/*.ts', '../../core/dist/**/*.ts'];
+const watchFoldersAbsolute = watchFoldersRelative.map((relativePath) =>
+    path.resolve(__dirname, relativePath),
+);
+
+console.log(watchFoldersAbsolute);
+
+export default defineConfig((options) => ({
+    ...options,
     entry: ['src/index.ts'],
     format: ['esm'],
     dts: true,
@@ -13,4 +22,5 @@ export default defineConfig({
     outDir: 'dist',
     shims: true,
     noExternal: ['@tradercore/framework'],
-});
+    watch: options.watch ? watchFoldersAbsolute : false,
+}));
