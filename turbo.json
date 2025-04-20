@@ -20,9 +20,7 @@
             "dependsOn": ["^test", "^build", "^check-types"],
             "cache": false
         },
-        "//#lint-format": {
-            "cache": false
-        },
+        "//#lint-format": {},
         "//#lint-format:fix": {
             "cache": false
         }

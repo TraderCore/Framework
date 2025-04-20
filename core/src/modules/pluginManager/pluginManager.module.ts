@@ -3,39 +3,51 @@ import { PLUGINS, REGISTRIES } from './constants.js';
 import { loadPlugin } from './loaders/loadPlugin.js';
 import { PluginManagerController } from './pluginManager.controller.js';
 import type { Plugin, PluginInternal } from './types/plugin.js';
+import { PluginType } from './types/plugin.js';
 
-interface PluginManagerOptions {
-    registry: string[];
-}
+type Registry = {
+    url: string;
+    authorization?: string;
+};
+
+type PluginManagerOptions = {
+    /**
+     * The registries to use to load plugins from.
+     */
+    registry: Registry[];
+
+    /**
+     * The plugins to load.
+     */
+    plugins: string[];
+
+    /**
+     * The Allowed Plugin Entrypoints Types.
+     */
+    allowedEntrypointTypes?: PluginType[];
+};
 
 @Global()
 @Module({})
 // biome-ignore lint/complexity/noStaticOnlyClass: Most likely the only class that will be static only
 export class PluginManagerModule {
+    private static readonly logger = new Logger(PluginManagerModule.name);
+
     static async forRoot(
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
-        const toLoad: string[] = [
-            'file:///Users/thomasburridge/Projects/TraderCore/Plugin-Template/packages/main/dist/index.js',
-        ];
-
-        const registries: string[] = [
-            'registry.tradercore.dev/v1',
-            ...options.registry,
-        ];
-
         const plugins: Plugin[] = [];
 
-        const logger = new Logger(PluginManagerModule.name);
-
-        for (const pluginUri of toLoad) {
+        for (const pluginUri of options.plugins) {
             const loaded = await loadPlugin(pluginUri).catch((error) => {
-                logger.error(`Failed to load plugin ${pluginUri}: ${error}`);
+                PluginManagerModule.logger.error(
+                    `Failed to load plugin ${pluginUri}: ${error}`,
+                );
                 throw error;
             });
 
             if (loaded) {
-                logger.log(
+                PluginManagerModule.logger.log(
                     `Loaded plugin ${loaded.name}@${loaded.version} from ${pluginUri}`,
                 );
 
@@ -48,14 +60,31 @@ export class PluginManagerModule {
             }
         }
 
-        logger.log(`Loaded ${plugins.length} plugins`);
+        // Get the allowed entrypoint types from the options or use the default
+        const allowedEntrypoints = options.allowedEntrypointTypes ?? [
+            PluginType.Api,
+            PluginType.Processor,
+            PluginType.Ingress,
+        ];
+
+        // Filter the plugins to only include the allowed entrypoint types
+        const allowedPluginEntrypoints = plugins.flatMap((plugin) =>
+            plugin.entrypoints.filter((entrypoint) =>
+                allowedEntrypoints.includes(entrypoint.type),
+            ),
+        );
+
+        PluginManagerModule.logger.log(`Loaded ${plugins.length} plugins`);
+        PluginManagerModule.logger.log(
+            `Loaded ${allowedPluginEntrypoints.length} plugin entrypoints: ${allowedPluginEntrypoints
+                .map((entrypoint) => entrypoint.type)
+                .join(', ')}`,
+        );
 
         return {
             module: PluginManagerModule,
-            imports: plugins.flatMap((plugin) =>
-                plugin.entrypoints.map(
-                    (entrypoint) => entrypoint.module as DynamicModule,
-                ),
+            imports: allowedPluginEntrypoints.map(
+                (entrypoint) => entrypoint.module as DynamicModule,
             ),
             providers: [
                 {
@@ -64,12 +93,22 @@ export class PluginManagerModule {
                 },
                 {
                     provide: REGISTRIES,
-                    useValue: registries,
+                    useValue: options.registry,
                 },
             ],
             controllers: [PluginManagerController],
             exports: [],
             global: true,
+        };
+    }
+
+    static async forRootAsync(
+        options: PluginManagerOptions,
+    ): Promise<DynamicModule> {
+        return {
+            module: PluginManagerModule,
+            imports: [],
+            providers: [],
         };
     }
 }
