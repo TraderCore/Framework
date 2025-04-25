@@ -14,6 +14,10 @@ export enum PluginType {
     Ingress = 'ingress',
 }
 
+export const IsPluginType = (type: string): type is PluginType => {
+    return Object.values(PluginType).includes(type as PluginType);
+};
+
 export interface PluginEntrypoint {
     type: PluginType;
     description: string;

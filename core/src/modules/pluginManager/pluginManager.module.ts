@@ -1,78 +1,58 @@
-import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
-import { PLUGINS, REGISTRIES } from './constants.js';
+import { DynamicModule, Logger } from '@nestjs/common';
+import { ALLOWED_ENTRYPOINT_TYPES, PLUGINS, REGISTRIES } from './constants.js';
 import { loadPlugin } from './loaders/loadPlugin.js';
 import { PluginManagerController } from './pluginManager.controller.js';
-import type { Plugin, PluginInternal } from './types/plugin.js';
-import { PluginType } from './types/plugin.js';
+import { PluginManagerOptions } from './types/moduleOptions.js';
+import type { Plugin, PluginEntrypoint } from './types/plugin.js';
+import { IsPluginType, PluginType } from './types/plugin.js';
+import { Registry } from './types/registry.js';
 
-type Registry = {
-    url: string;
-    authorization?: string;
-};
-
-type PluginManagerOptions = {
-    /**
-     * The registries to use to load plugins from.
-     */
-    registry: Registry[];
-
-    /**
-     * The plugins to load.
-     */
-    plugins: string[];
-
-    /**
-     * The Allowed Plugin Entrypoints Types.
-     */
-    allowedEntrypointTypes?: PluginType[];
-};
-
-@Global()
-@Module({})
 // biome-ignore lint/complexity/noStaticOnlyClass: Most likely the only class that will be static only
 export class PluginManagerModule {
     private static readonly logger = new Logger(PluginManagerModule.name);
 
-    static async forRoot(
+    static async register(
         options: PluginManagerOptions,
     ): Promise<DynamicModule> {
-        const plugins: Plugin[] = [];
+        PluginManagerModule.logger.log(
+            `Registering PluginManagerModule with options: ${JSON.stringify(
+                options,
+            )}`,
+            {
+                registriesString: options.registriesString,
+                pluginsString: options.pluginsString,
+                allowedEntrypointTypesString:
+                    options.allowedEntrypointTypesString,
+            },
+        );
 
-        for (const pluginUri of options.plugins) {
-            const loaded = await loadPlugin(pluginUri).catch((error) => {
-                PluginManagerModule.logger.error(
-                    `Failed to load plugin ${pluginUri}: ${error}`,
-                );
-                throw error;
-            });
+        const registries = PluginManagerModule.mapRegistries(
+            options.registriesString,
+        );
 
-            if (loaded) {
-                PluginManagerModule.logger.log(
-                    `Loaded plugin ${loaded.name}@${loaded.version} from ${pluginUri}`,
-                );
+        PluginManagerModule.logger.log(
+            `Loaded ${registries.length} registries`,
+            {
+                registries,
+            },
+        );
 
-                const internal: PluginInternal = {
-                    ...loaded,
-                    location: pluginUri,
-                };
+        const allowedEntrypointsTypes =
+            PluginManagerModule.mapAllowedEntrypoints(
+                options.allowedEntrypointTypesString,
+            );
 
-                plugins.push(internal);
-            }
-        }
-
-        // Get the allowed entrypoint types from the options or use the default
-        const allowedEntrypoints = options.allowedEntrypointTypes ?? [
-            PluginType.Api,
-            PluginType.Processor,
-            PluginType.Ingress,
-        ];
+        const plugins = await PluginManagerModule.getPlugins(
+            options.pluginsString,
+            registries,
+        );
 
         // Filter the plugins to only include the allowed entrypoint types
-        const allowedPluginEntrypoints = plugins.flatMap((plugin) =>
-            plugin.entrypoints.filter((entrypoint) =>
-                allowedEntrypoints.includes(entrypoint.type),
-            ),
-        );
+        const allowedPluginEntrypoints =
+            PluginManagerModule.getAllowedEntrypoints(
+                plugins,
+                allowedEntrypointsTypes,
+            );
 
         PluginManagerModule.logger.log(`Loaded ${plugins.length} plugins`);
         PluginManagerModule.logger.log(
@@ -93,7 +73,11 @@ export class PluginManagerModule {
                 },
                 {
                     provide: REGISTRIES,
-                    useValue: options.registry,
+                    useValue: registries,
+                },
+                {
+                    provide: ALLOWED_ENTRYPOINT_TYPES,
+                    useValue: allowedEntrypointsTypes,
                 },
             ],
             controllers: [PluginManagerController],
@@ -102,13 +86,90 @@ export class PluginManagerModule {
         };
     }
 
-    static async forRootAsync(
-        options: PluginManagerOptions,
-    ): Promise<DynamicModule> {
-        return {
-            module: PluginManagerModule,
-            imports: [],
-            providers: [],
-        };
+    private static mapRegistries(registriesString: string): Registry[] {
+        return registriesString
+            .split(',')
+            .map((registry) => {
+                const [url, authorization] = registry.split(':');
+
+                if (!url) {
+                    PluginManagerModule.logger.error(
+                        `Invalid registry: ${registry}`,
+                    );
+                    return null;
+                }
+
+                return { url, authorization };
+            })
+            .filter((registry) => registry !== null) as Registry[];
+    }
+
+    private static mapAllowedEntrypoints(
+        allowedEntrypointsTypesString?: string,
+    ): PluginType[] {
+        if (!allowedEntrypointsTypesString) {
+            return Object.values(PluginType);
+        }
+
+        return allowedEntrypointsTypesString
+            .split(',')
+            .map((type) => {
+                if (IsPluginType(type)) {
+                    return type;
+                }
+            })
+            .filter((type) => type !== undefined) as PluginType[];
+    }
+
+    private static getAllowedEntrypoints(
+        plugins: Plugin[],
+        allowedEntrypointsTypes: PluginType[],
+    ): PluginEntrypoint[] {
+        PluginManagerModule.logger.debug('Getting allowed entrypoints');
+
+        const allowedEntrypoints = plugins.flatMap((plugin) =>
+            plugin.entrypoints.filter((entrypoint) =>
+                allowedEntrypointsTypes.includes(entrypoint.type),
+            ),
+        );
+
+        PluginManagerModule.logger.debug(
+            `Got ${allowedEntrypoints.length} allowed entrypoints`,
+        );
+
+        return allowedEntrypoints;
+    }
+
+    private static async getPlugins(
+        pluginsString: string,
+        registries: Registry[],
+    ): Promise<Plugin[]> {
+        PluginManagerModule.logger.debug(`Getting plugins: ${pluginsString}`);
+        const pluginsToLoad = pluginsString.split(',');
+
+        PluginManagerModule.logger.debug(
+            `Plugins to load: ${pluginsToLoad.join(', ')}`,
+        );
+
+        const plugins: Plugin[] = [];
+
+        for (const pluginUri of pluginsToLoad) {
+            const loaded = await loadPlugin(pluginUri, registries).catch(
+                (error) => {
+                    PluginManagerModule.logger.error(
+                        `Failed to load plugin ${pluginUri}: ${error}`,
+                    );
+                    return null;
+                },
+            );
+
+            if (loaded) {
+                plugins.push(loaded);
+            }
+        }
+
+        PluginManagerModule.logger.debug(`Got ${plugins.length} plugins`);
+
+        return plugins;
     }
 }

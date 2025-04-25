@@ -18,7 +18,7 @@
         "============== TURBO ==============": "",
         "build": "turbo build",
         "test": "turbo test",
-        "dev": "turbo watch dev",
+        "dev": "dotenv -- turbo watch dev",
         "check-types": "turbo check-types",
         "============== LINTING ==============": "",
         "lint": "turbo lint-format",
@@ -37,26 +37,25 @@
         "============== SCRIPTS ==============": "",
         "prepare": "husky && syncpack list-mismatches",
         "lint-staged": "lint-staged",
-        "commitlint": "commitlint --edit"
+        "commitlint": "commitlint --edit",
+        "syncpack:lint": "syncpack lint-semver-ranges"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
-        "@changesets/cli": "2.27.12",
-        "@commitlint/cli": "19.5.0",
-        "@commitlint/config-conventional": "19.5.0",
-        "@types/node": "22.9.0",
-        "husky": "9.1.6",
-        "lint-staged": "15.2.10",
+        "@changesets/cli": "2.29.2",
+        "@commitlint/cli": "19.8.0",
+        "@commitlint/config-conventional": "19.8.0",
+        "@types/node": "22.14.1",
+        "dotenv-cli": "8.0.0",
+        "husky": "9.1.7",
+        "lint-staged": "15.5.1",
         "rimraf": "6.0.1",
-        "syncpack": "13.0.0",
+        "syncpack": "13.0.3",
         "turbo": "2.5.0"
     },
     "license": "GPL-3.0-only",
     "lint-staged": {
-        "package.json": [
-            "syncpack lint-semver-ranges",
-            "syncpack list-mismatches"
-        ],
+        "package.json": "sh -c 'syncpack lint-semver-ranges'",
         "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
     },
     "packageManager": "pnpm@10.8.1",

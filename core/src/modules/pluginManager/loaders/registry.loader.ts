@@ -1,10 +1,11 @@
 import type { Plugin } from '../types/plugin.js';
+import { Registry } from '../types/registry.js';
 import { getProtocolFile } from '../utils/getProtocolFile.js';
 import { SavePlugin } from '../utils/savePlugin.js';
 
 export const loadRegistry = async (
     url: string,
-    apikey: string,
+    registries: Registry[],
 ): Promise<Plugin> => {
     const { protocol, path } = await getProtocolFile(url);
 
@@ -17,7 +18,7 @@ export const loadRegistry = async (
     const response = await fetch(`https://${path}`, {
         headers: {
             // biome-ignore lint/style/useNamingConvention: API key is always provided as Authorization header
-            Authorization: `Bearer ${apikey}`,
+            Authorization: `Bearer ${registries[0]?.authorization}`,
         },
     });
 

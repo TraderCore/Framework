@@ -1,7 +1,14 @@
 packages:
-  - "apps/*"
-  - "cli"
-  - "core"
-  - "packages/*"
-  - "plugins/*"
-  - "tooling/*"
+  - apps/*
+  - cli
+  - core
+  - packages/*
+  - plugins/*
+  - tooling/*
+
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@swc/core'
+  - esbuild
+  - nestjs-pino
+  - sharp

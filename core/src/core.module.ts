@@ -5,11 +5,12 @@ import { PluginManagerModule } from './modules/pluginManager/pluginManager.modul
 @Module({
     imports: [
         ConfigModule,
-        PluginManagerModule.forRoot({
-            registry: [],
-            plugins: [
-                'file:///Users/thomasburridge/Projects/TraderCore/Plugin-Template/packages/main/dist/index.js',
-            ],
+        PluginManagerModule.register({
+            registriesString:
+                process.env.REGISTRIES ?? 'registry.tradercore.dev',
+            pluginsString: process.env.PLUGINS ?? '',
+            allowedEntrypointTypesString:
+                process.env.ALLOWED_ENTRYPOINT_TYPES ?? '',
         }),
     ],
     providers: [],

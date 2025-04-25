@@ -1,6 +1,12 @@
 {
     "$schema": "https://turbo.build/schema.json",
-    "globalEnv": ["NODE_ENV", "DEBUG"],
+    "globalEnv": [
+        "NODE_ENV",
+        "DEBUG",
+        "PLUGINS",
+        "ALLOWED_ENTRYPOINT_TYPES",
+        "REGISTRIES"
+    ],
     "tasks": {
         "build": {
             "dependsOn": ["^build"],

@@ -34,8 +34,9 @@ const bootstrap = async () => {
         .setVersion('1.0')
         .build();
 
-    const document = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup('docs', app, document);
+    SwaggerModule.setup('docs', app, () =>
+        SwaggerModule.createDocument(app, swaggerConfig),
+    );
 
     app.enableShutdownHooks();
     app.enableCors();

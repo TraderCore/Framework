@@ -1,5 +1,10 @@
+import { DynamicModule } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { PluginEntrypoint, PluginInternal } from '../types/plugin.js';
+import {
+    PluginEntrypoint,
+    PluginInternal,
+    PluginType,
+} from '../types/plugin.js';
 
 export class PluginResponseDto implements PluginInternal {
     @ApiProperty()
@@ -11,6 +16,16 @@ export class PluginResponseDto implements PluginInternal {
     @ApiProperty()
     location!: string;
 
-    @ApiProperty()
+    @ApiProperty({ type: () => [PluginEntrypointResponseDto] })
     entrypoints!: PluginEntrypoint[];
+}
+
+class PluginEntrypointResponseDto implements PluginEntrypoint {
+    @ApiProperty({ enum: PluginType })
+    type!: PluginType;
+
+    @ApiProperty()
+    description!: string;
+
+    module!: DynamicModule;
 }
