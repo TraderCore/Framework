@@ -1,1 +1,2 @@
+pnpm syncpack lint-semver-ranges
 pnpm lint-staged

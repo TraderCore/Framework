@@ -38,7 +38,7 @@
         "prepare": "husky && syncpack list-mismatches",
         "lint-staged": "lint-staged",
         "commitlint": "commitlint --edit",
-        "syncpack:lint": "syncpack lint-semver-ranges"
+        "syncpack:check": "syncpack lint-semver-ranges"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
@@ -55,8 +55,7 @@
     },
     "license": "GPL-3.0-only",
     "lint-staged": {
-        "package.json": "sh -c 'syncpack lint-semver-ranges'",
-        "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
+        "*.{js,jsx,ts,tsx,json,css}": "biome check --apply"
     },
     "packageManager": "pnpm@10.8.1",
     "engines": {
