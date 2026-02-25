@@ -12,7 +12,21 @@
         "url": "https://github.com/tradercore/framework/issues"
     },
     "homepage": "https://tradercore.com",
-    "keywords": ["trading", "framework", "finance", "typescript", "nodejs"],
+    "keywords": [
+        "trading",
+        "framework",
+        "finance",
+        "typescript",
+        "bun"
+    ],
+    "workspaces": [
+        "apps/*",
+        "cli",
+        "core",
+        "packages/*",
+        "plugins/*",
+        "tooling/*"
+    ],
     "scripts": {
         "============== TURBO ==============": "",
         "build": "turbo build",
@@ -25,38 +39,37 @@
         "lint-format": "biome check .",
         "lint-format:fix": "biome check . --fix",
         "============== APPLICATIONS ==============": "",
-        "app:admin": "pnpm --filter @tradercore/app-admin-dashboard",
-        "app:client": "pnpm --filter @tradercore/app-client-dashboard",
-        "app:api": "pnpm --filter @tradercore/app-api",
-        "app:cli": "pnpm --filter @tradercore/cli",
+        "app:admin": "bun --filter @tradercore/app-admin-dashboard",
+        "app:client": "bun --filter @tradercore/app-client-dashboard",
+        "app:api": "bun --filter @tradercore/app-api",
+        "app:cli": "bun --filter @tradercore/cli",
         "============== RELEASE ==============": "",
         "changeset": "changeset",
         "version-packages": "changeset version",
-        "release:publish": "pnpm build && changeset publish",
+        "release:publish": "bun run build && changeset publish",
         "============== SCRIPTS ==============": "",
-        "prepare": "husky && syncpack list-mismatches",
+        "prepare": "husky && syncpack lint",
         "lint-staged": "lint-staged",
         "commitlint": "commitlint --edit"
     },
     "devDependencies": {
-        "@biomejs/biome": "1.9.4",
-        "@changesets/cli": "2.27.12",
-        "@commitlint/cli": "19.7.1",
-        "@commitlint/config-conventional": "19.7.1",
-        "@types/node": "22.13.1",
+        "@biomejs/biome": "2.4.4",
+        "@changesets/cli": "2.29.8",
+        "@commitlint/cli": "20.4.2",
+        "@commitlint/config-conventional": "20.4.2",
+        "@types/bun": "1.2.9",
+        "bun-types": "1.2.9",
         "husky": "9.1.7",
-        "lint-staged": "15.4.3",
-        "rimraf": "6.0.1",
-        "syncpack": "13.0.2",
-        "turbo": "2.4.0"
+        "lint-staged": "16.2.7",
+        "rimraf": "6.1.3",
+        "syncpack": "14.0.0",
+        "turbo": "2.8.11"
     },
     "license": "GPL-3.0-only",
     "lint-staged": {
-        "*.{js,jsx,ts,tsx,json}": ["biome check --fix"]
+        "*.{js,jsx,ts,tsx,json}": [
+            "biome check --fix"
+        ]
     },
-    "packageManager": "pnpm@9.12.3",
-    "engines": {
-        "node": ">=22.0.0",
-        "pnpm": ">=9.12.3"
-    }
+    "packageManager": "bun@1.3.9"
 }

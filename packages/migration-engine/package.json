@@ -1,0 +1,43 @@
+{
+    "name": "@tradercore/migration-engine",
+    "version": "1.0.0",
+    "description": "TraderCore Migration Engine - Per-plugin SQL migration runner",
+    "author": "TheGoatedDev",
+    "type": "commonjs",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tradercore/framework.git",
+        "directory": "packages/migration-engine"
+    },
+    "bin": {
+        "tradercore-generate-migrations": "./src/bin/generate-migrations.ts"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js",
+            "import": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "check-types": "tsc --noEmit",
+        "build": "rimraf dist && tsc",
+        "dev": "tsc --watch",
+        "test": "bun test"
+    },
+    "dependencies": {
+        "@nestjs/common": "11.1.14"
+    },
+    "devDependencies": {
+        "@tradercore/typescript-config": "workspace:*",
+        "@types/bun": "1.2.9",
+        "rimraf": "6.1.3",
+        "typescript": "5.9.3"
+    },
+    "sideEffects": false
+}

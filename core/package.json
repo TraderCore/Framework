@@ -15,7 +15,13 @@
     "bugs": {
         "url": "https://github.com/tradercore/framework/issues"
     },
-    "keywords": ["core", "trading", "framework", "nestjs", "tradercore"],
+    "keywords": [
+        "core",
+        "trading",
+        "framework",
+        "nestjs",
+        "tradercore"
+    ],
     "imports": {
         "@/*": "./dist/*"
     },
@@ -29,27 +35,31 @@
             "types": "./dist/modules/config/index.d.ts",
             "require": "./dist/modules/config/index.js",
             "import": "./dist/modules/config/index.js"
+        },
+        "./database": {
+            "types": "./dist/modules/database/index.d.ts",
+            "require": "./dist/modules/database/index.js",
+            "import": "./dist/modules/database/index.js"
         }
     },
     "scripts": {
         "check-types": "tsc --noEmit",
         "build": "rimraf dist && tsc",
         "dev": "tsc --watch",
-        "test": "jest --passWithNoTests"
+        "test": "bun test"
     },
     "dependencies": {
-        "@nestjs/common": "11.0.7",
-        "@nestjs/config": "4.0.0",
-        "@nestjs/core": "11.0.7",
-        "@nestjs/swagger": "11.0.3",
-        "zod": "3.24.1"
+        "@nestjs/common": "11.1.14",
+        "@nestjs/config": "4.0.3",
+        "@nestjs/core": "11.1.14",
+        "@nestjs/swagger": "11.2.6",
+        "@tradercore/migration-engine": "workspace:*",
+        "zod": "3.25.76"
     },
     "devDependencies": {
-        "@tradercore/jest-config": "workspace:*",
         "@tradercore/typescript-config": "workspace:*",
-        "@types/jest": "29.5.14",
-        "jest": "29.7.0",
-        "typescript": "5.7.3"
+        "@types/bun": "1.2.9",
+        "typescript": "5.9.3"
     },
     "sideEffects": false
 }

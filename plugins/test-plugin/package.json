@@ -1,0 +1,28 @@
+{
+    "name": "@tradercore/plugin-test",
+    "version": "0.0.1",
+    "description": "TraderCore test plugin - template for plugin development",
+    "author": "TheGoatedDev",
+    "private": true,
+    "type": "commonjs",
+    "scripts": {
+        "check-types": "tsc --noEmit",
+        "build": "rimraf dist && tsc",
+        "dev": "tsc --watch",
+        "db:generate": "tradercore-generate-migrations"
+    },
+    "dependencies": {
+        "@nestjs/common": "11.1.14",
+        "@nestjs/core": "11.1.14",
+        "@nestjs/swagger": "11.2.6",
+        "@tradercore/framework": "workspace:*",
+        "@tradercore/migration-engine": "workspace:*"
+    },
+    "devDependencies": {
+        "@tradercore/typescript-config": "workspace:*",
+        "@types/bun": "1.2.9",
+        "rimraf": "6.1.3",
+        "typescript": "5.9.3"
+    },
+    "sideEffects": false
+}
