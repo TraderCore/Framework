@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS plugins (
+    name TEXT PRIMARY KEY,
+    version TEXT NOT NULL,
+    location TEXT NOT NULL,
+    enabled BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

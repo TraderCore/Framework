@@ -46,7 +46,8 @@
         "check-types": "tsc --noEmit",
         "build": "rimraf dist && tsc",
         "dev": "tsc --watch",
-        "test": "bun test"
+        "test": "bun test",
+        "db:generate": "tradercore-generate-migrations --dir ./migrations --out ./src/migrations.ts"
     },
     "dependencies": {
         "@nestjs/common": "11.1.14",

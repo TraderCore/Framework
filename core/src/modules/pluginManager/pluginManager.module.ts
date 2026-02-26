@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { type DynamicModule, Global, Logger, Module } from '@nestjs/common';
 import type { PluginMigrationSet } from '@tradercore/migration-engine';
+import { MigrationRunner } from '@tradercore/migration-engine';
 import { SQL } from 'bun';
+import { migrations as coreMigrations } from '../../migrations.js';
 import { parseDatabaseConfig } from '../database/database.config.js';
 import { DatabaseModule } from '../database/database.module.js';
 import { PLUGINS } from './constants';
@@ -40,8 +42,10 @@ export class PluginManagerModule {
             connectionTimeout: 10,
         });
 
+        const runner = new MigrationRunner(client);
+        await runner.run([{ pluginName: 'core', migrations: coreMigrations }]);
+
         const pluginState = new PluginState(client);
-        await pluginState.initialize();
 
         const toLoad: string[] = [...(options?.plugins ?? [])];
 
